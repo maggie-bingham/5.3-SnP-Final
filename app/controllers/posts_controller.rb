@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :author_select, only: [:new, :edit]
+  before_action :author_select, only: [:new, :edit, :create, :update]
 
   def all
-    @posts = Post.order("created_at DESC").first(10)
+    @posts = Post.page(params[:page]).per(10).order("created_at DESC")
   end
 
   # GET /posts
